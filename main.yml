@@ -13,31 +13,31 @@
     - name: Deploy docker apps
       ansible.builtin.include_tasks: "tasks/{{ item }}.yml"
       loop:
-        - authelia
-        - traefik
-        - code_server
+        # - authelia
+        - traefik_service
+        # - code_server
         - dashdot
-        - duplicati
-        - filebrowser
-        - guacamole
-        - heimdall
-        - homarr
-        - jellyfin
-        - jellyseerr
-        - monitoring
-        - n8n
-        - nextcloud
+        # - duplicati
+        # - filebrowser
+        # - guacamole
+        # - heimdall
+        # - homarr
+        # - jellyfin
+        # - jellyseerr
+        # - monitoring
+        # - n8n
+        # - nextcloud
         - portainer
-        - prowlarr
-        - qbittorrent
-        - radarr
-        - requestrr
-        - sonarr
-        - syncthing
-        - unmanic
-        - uptime_kuma
-        - vaultwarden
-        - watchtower
+        # - prowlarr
+        # - qbittorrent
+        # - radarr
+        # - requestrr
+        # - sonarr
+        # - syncthing
+        # - unmanic
+        # - uptime_kuma
+        # - vaultwarden
+        # - watchtower
         - wireguard
 
     - name: Modify ownership of data and docker_apps directories

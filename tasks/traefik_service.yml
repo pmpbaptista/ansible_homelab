@@ -1,0 +1,35 @@
+---
+- name: Create traefik data directory
+  ansible.builtin.file:
+    path: "{{ docker_dir }}/traefik/data"
+    state: directory
+    mode: '0755'
+    access_time: preserve
+    modification_time: preserve
+
+- name: Adding traefik.yml file
+  template:
+    src: traefik.yml.j2
+    dest: "{{ docker_dir }}/traefik/data/traefik.yml"
+    mode: 0600
+
+- name: Create a volume for certs
+  docker_volume:
+    name: traefik-ssl-certs
+
+- name: Create the traefik container
+  docker_container:
+    name: traefik
+    image: traefik:latest
+    restart_policy: unless-stopped
+    recreate: true
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Don't do this in production!
+    networks:
+      - name: homelab
+    volumes:
+      - traefik-ssl-certs:/ssl-certs
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "{{ docker_dir }}/traefik/data/traefik.yml:/etc/traefik/traefik.yml"
